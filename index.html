@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="de" class="html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Parallax Site</title>
+
+    <link rel="alternate" href="https://example.com/en" hreflang="en">
+    <link rel="alternate" href="https://example.com/de" hreflang="de">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --grid-block-color: rgba(12, 37, 86, 0.03);
+            --primary-color: #0C2556;
+        }
+        .matrix {
+            /*width: 260px; !* 5 squares of 20px + 4 gaps of 40px *!*/
+            /*height: 260px; !* 5 squares of 20px + 4 gaps of 40px *!*/
+            /*background-image:*/
+            /*        repeating-linear-gradient(0deg, var(--grid-block-color) 0, var(--grid-block-color) 20px, transparent 20px, transparent 60px),*/
+            /*        repeating-linear-gradient(90deg, var(--grid-block-color) 0, var(--grid-block-color) 20px, transparent 20px, transparent 60px);*/
+            /*background-size: 260px 260px;*/
+            position: absolute;
+            width: 275px; /* 5 squares of 40px + 4 gaps of 15px */
+            height: 275px; /* 5 squares of 40px + 4 gaps of 15px */
+            background-color: rgba(12, 37, 86, 0.03);
+            background-image:
+                    repeating-linear-gradient(0deg, #fff 0, #fff 40px, transparent 40px, transparent 55px),
+                    repeating-linear-gradient(90deg, #fff 0, #fff 40px, transparent 40px, transparent 55px);
+            background-size: 275px 275px;
+            z-index: 0;
+        }
+
+        .matrix.map1 {
+            top: 320px;
+            left: 170px;
+        }
+
+        .matrix.map2 {
+            top: 0;
+            right: 120px;
+        }
+        .matrix.services1,
+        .matrix.services2 {
+            background-color: #0C255608;
+            background-image:
+                    repeating-linear-gradient(0deg, #EFF5F9 0, #EFF5F9 40px, transparent 40px, transparent 55px),
+                    repeating-linear-gradient(90deg, #EFF5F9 0, #EFF5F9 40px, transparent 40px, transparent 55px);
+        }
+
+        .matrix.services1 {
+            top: 140px;
+            right: 140px;
+        }
+        .matrix.services2 {
+            bottom: 56px;
+            left: 78px;
+        }
+        .matrix.about {
+                left: 120px;
+                bottom: -100px;
+        }
+    </style>
+    <style>
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Work Sans', sans-serif;
+        }
+        * {
+            font-family: 'Work Sans', sans-serif;
+            z-index: 1;
+        }
+        .dropdown-enter {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-enter-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .dropdown-leave {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .dropdown-leave-active {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        header {
+            position: fixed !important;
+            top: 0;
+            width: 100%;
+            z-index: 50;
+            background-color: transparent; /* Initially transparent */
+            transition: background-color 0.3s ease;
+        }
+        .footer {
+            background-color:var(--primary-color);
+        }
+        .sticky-header {
+            background-color:var(--primary-color);
+        }
+
+        .map-description {
+            background-color:var(--primary-color);
+            color: #fff;
+            transform: translateX(-86%) translateY(-110px);
+            z-index: 2;
+
+        }
+.service-header {
+    color: #0C2556;
+
+}
+
+.service-header-underline {
+    background-color: #0C2556;
+}
+#hero {
+            height: 750px;
+        }
+
+        #about {
+            color: #0C2556;
+        }
+
+        #services {
+            background-color: #EFF5F9;
+        }
+
+        select#languageDropdown {
+            background: transparent;
+            color: white;
+            border: none;
+            padding-right: 2rem; /* Space for the chevron icon */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        select#languageDropdown option {
+            color: black; /* Dropdown options text color */
+        }
+
+        select#languageDropdown:focus {
+            outline: none;
+        }
+
+        .relative i.fas.fa-chevron-down {
+            pointer-events: none; /* Prevent clicking on the icon */
+        }
+
+        .digit-shadows {
+            color: #ecf0f5;
+            font-size: 7rem;
+            transform: translateX(-58%)  translateY(-68%);
+        }
+
+        .map-object {
+            width: 38rem;
+            height: 35rem;
+            border: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<header class="h-100 text-white py-4 px-20 flex justify-between items-center transition-colors duration-300 relative z-10 border-b border-white" >
+    <div class="flex items-center space-x-4 w-full">
+        <div class="flex items-center w-1/3">
+            <!--TODO check if its ok for SEO-->
+            <object data="assets/logo.svg" type="image/svg+xml" class="h-8 w-8"></object>
+            <h1 class="ml-4 text-2xl">Holz, Paletten TARA</h1>
+        </div>
+        <div class="flex justify-between w-2/3">
+            <nav class="flex space-x-8">
+                <ul class="flex space-x-8 items-center">
+                    <li><a href="#about" class="hover:underline text-white text-base">Über uns</a></li>
+                    <li><a href="#services" class="hover:underline text-white text-base">Dienstleistungen</a></li>
+                    <li><a href="#partners" class="hover:underline text-white text-base">Partner</a></li>
+                    <li><a href="#map" class="hover:underline text-white text-base">Standorte</a></li>
+                </ul>
+            </nav>
+            <div class="flex space-x-4 items-center">
+                <div class="relative">
+                    <select class="bg-transparent text-white px-2 py-2 rounded flex items-center appearance-none" id="languageDropdown">
+                        <option class="bg-transparent" value="https://example.com/en">EN</option>
+                        <option  value="https://example.com/de" selected>DE</option>
+                    </select>
+                    <i class="fas fa-chevron-down absolute right-2 top-1/2 transform -translate-y-1/2 text-white pointer-events-none"></i>
+                </div>
+                <a href="mailto:info@smallbusiness.com" class="bg-blue-700 text-white px-2 py-2 rounded">Emailen Sie uns</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section id="hero" class="h-screen flex relative">
+        <div class="w-2/5 bg-blue-900 flex items-center justify-center" style="background-color: #0C2556;">
+            <!-- Empty block for visual purpose -->
+        </div>
+        <div class="w-3/5 bg-cover bg-center" style="background-image: url('assets/hero-banner-blur.png');">
+            <!-- Empty block for visual purpose -->
+        </div>
+        <div class="absolute top-1/2 left-1/4 transform -translate-y-1/2 max-w-4xl flex flex-col items-start">
+            <h1 class="text-white text-7xl mb-4 text-left">Holzpaletten, auf die Sie zählen können</h1>
+            <button class="text-white border border-white bg-transparent py-4 px-6 text-base mt-24">
+                Kontaktieren Sie uns
+            </button>
+        </div>
+    </section>
+
+    <section id="about" class="relative bg-white bg-cover bg-fixed flex items-center justify-center py-24 px-20 overflow-hidden">
+        <div class="w-1/3 bg-white p-8 self-baseline">
+            <h3 class="border-b border-gray-300 text-5xl pb-7 mb-7">Über das Unternehmen</h3>
+        </div>
+        <div class="w-2/3 p-8">
+            <p class="text-base mb-4">Wir sind ein Unternehmen, das in Westdeutschland tätig ist und sich auf den An- und Verkauf von Paletten für Unternehmen verschiedener Branchen spezialisiert hat.</p>
+            <p class="text-base mb-4">Unser Service umfasst den gesamten Prozess: von der Vertragsgestaltung bis hin zur endgültigen Lieferung, inklusive aller Dokumente, Verzollung und Logistik.</p>
+            <p class="text-base mb-4">Unsere Lieferanten stammen aus Osteuropa. Die Produktqualität entspricht höchsten Standards und bietet wettbewerbsfähige Preise. Zudem gewährleisten wir eine schnelle und termingerechte Logistik.
+            </p>
+            <p class="text-base mb-4">Wir bieten unseren Kunden einen individuellen Ansatz und sind stets flexibel und zuverlässig in unseren Vereinbarungen.
+            </p>
+            <a href="#" class="text-blue-700 underline mt-14 block text-right">Mehr lesen <i class="fas fa-chevron-right ml-2"></i></a>
+            <div class="flex justify-between mt-24">
+                <div class="text-center relative">
+                    <div class="text-6xl font-bold relative z-10">16+</div>
+                    <div class="digit-shadows absolute top-1/2 left-1/2" >16</div>
+                    <div class="text-2xl mt-9">Jahre auf dem Markt</div>
+                </div>
+                <div class="text-center relative">
+                    <div class="text-6xl font-bold relative z-10">125+</div>
+                    <div class="digit-shadows absolute top-1/2 left-1/2">125</div>
+                    <div class="text-2xl mt-9">Abgeschlossene Projekte</div>
+                </div>
+            </div>
+        </div>
+        <div class="matrix about"></div>
+    </section>
+
+    <section id="services" class="py-24 px-20 text-center relative overflow-hidden">
+        <h2 class="service-header text-4xl font-bold mb-12 relative inline-block">
+            Our Services
+            <span class="service-header-underline block w-16 h-1 absolute left-1/2 transform -translate-x-1/2 -bottom-2"></span>
+        </h2>
+        <div class="grid grid-cols-2 gap-4 justify-center">
+            <div class="space-y-24">
+                <div class="space-y-4">
+                    <img src="assets/palets.jpeg" alt="Warehouse" class="w-96 h-52 mx-auto">
+                    <h3 class="border-b border-gray-300 text-2xl pb-2 mb-2 inline-block text-left">Logistik</h3>
+                </div>
+                <div class="space-y-4">
+                    <img src="assets/wherehouse1.jpeg" alt="Warehouse" class="w-96 h-52 mx-auto">
+                    <h3 class="border-b border-gray-300 text-2xl pb-2 mb-2 inline-block text-left">Einzelhandel</h3>
+                </div>
+            </div>
+            <div class="space-y-24 mt-32">
+                <div class="space-y-4">
+                    <img src="assets/logistics.jpeg" alt="Warehouse" class="w-96 h-52 mx-auto">
+                    <h3 class="border-b border-gray-300 text-2xl pb-2 mb-2 inline-block text-left">Vertrieb</h3>
+                </div>
+                <div class="space-y-4">
+                    <img src="assets/wherehouse1.jpeg" alt="Warehouse" class="w-96 h-52 mx-auto">
+                    <h3 class="border-b border-gray-300 text-2xl pb-2 mb-2 inline-block text-left">Lager</h3>
+                </div>
+            </div>
+        </div>
+        <div class="matrix services1"></div>
+        <div class="matrix services2"></div>
+    </section>
+
+    <section id="partners" class="bg-white py-24 px-20 text-center">
+        <h2 class="service-header text-4xl font-bold mb-12 relative inline-block">
+            Unsere Dienstleistungen
+            <span class="service-header-underline block w-16 h-1 absolute left-1/2 transform -translate-x-1/2 -bottom-2"></span>
+        </h2>
+        <div class="flex justify-center space-x-8">
+            <img src="assets/stub-logo.png" alt="Partner 1" class="h-24">
+            <img src="assets/stub-logo.png" alt="Partner 2" class="h-24">
+            <img src="assets/stub-logo.png" alt="Partner 3" class="h-24">
+            <img src="assets/stub-logo.png" alt="Partner 4" class="h-24">
+            <img src="assets/stub-logo.png" alt="Partner 5" class="h-24">
+        </div>
+    </section>
+
+
+    <section id="map" class="h-auto bg-white flex items-center justify-center relative" >
+        <div class="flex flex-col items-center py-32 relative">
+            <div class="map-description absolute transform translate-x-9/10 p-8 shadow-lg max-w-xs  h-80" style="transform: translateX(-85%);">
+                <h3 class="border-b border-white text-2xl pb-7 mb-7">Internationaler Service in Europa</h3>
+                <p >Wir bieten Dienstleistungen in verschiedenen europäischen Ländern an, wie Deutschland, Polen, der Ukraine und Belarus.</p>
+            </div>
+            <object data="assets/europe-map.svg" type="image/svg+xml" class="map-object border"></object>
+        </div>
+        <div class="matrix map1"></div>
+        <div class="matrix map2"></div>
+    </section>
+</main>
+
+<footer  class="footer text-white p-4 text-center py-4 px-20">
+    <div class="flex justify-between items-center pt-6 pb-10 border-b border-white">
+        <div class="flex items-center">
+            <!--TODO check if its ok for SEO-->
+            <object data="assets/logo.svg" type="image/svg+xml" class="h-8 w-8"></object>
+            <h1 class="ml-4 text-2xl">Holz, Paletten TARA</h1>
+        </div>
+        <button class="text-white border border-white bg-transparent py-4 px-6 text-base">
+            Kontaktieren Sie uns
+        </button>
+    </div>
+    <div class="flex justify-center items-center py-10">
+        <nav class="flex space-x-8">
+            <ul class="flex space-x-8 items-center">
+                <li><a href="#about" class="hover:underline text-white text-base">Über uns</a></li>
+                <li><a href="#services" class="hover:underline text-white text-base">Dienstleistungen</a></li>
+                <li><a href="#partners" class="hover:underline text-white text-base">Partner</a></li>
+                <li><a href="#map" class="hover:underline text-white text-base">Standorte</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+
+<script>
+
+    function handleScroll() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 0) {
+            header.classList.add('sticky-header');
+        } else {
+            header.classList.remove('sticky-header');
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Check scroll position on page load
+    document.addEventListener('DOMContentLoaded', handleScroll);
+
+
+    document.getElementById('languageDropdown').addEventListener('change', function() {
+       // TODO
+        // window.location.href = this.value;
+    });
+</script>
+</body>
+</html>

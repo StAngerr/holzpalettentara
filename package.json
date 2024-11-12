@@ -1,0 +1,14 @@
+{
+  "name": "holzpalettentara",
+  "version": "1.0.0",
+  "description": "Lnading page",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwind": "^4.0.0"
+  }
+}
